@@ -2,12 +2,7 @@
 <%@ page import="tw.com.cht.FaxUtil" %>
 <%@ page import="cht.paas.util.CloudLogger" %>
 <%@ page import="cht.paas.util.LogLevel" %>
-<!doctype html>
-<html>
-<head>
-<meta charset=utf-8>
-</head>
-<body>
+
 <%
 CloudLogger logger = CloudLogger.getLogger();
 logger.setLevel(LogLevel.ALL);
@@ -24,11 +19,11 @@ String senderName = request.getParameter("senderName")==null?"":new String(reque
 
 String senderFax = request.getParameter("senderFax")==null?"":request.getParameter("senderFax");
 
-String result = FaxUtil.sendFax(subject, receiver, sendType, sendTime, senderName, senderFax);
+String filePath = request.getParameter("filePath")==null?"":request.getParameter("filePath");
+
+String result = FaxUtil.sendFax(subject, receiver, sendType, sendTime, senderName, senderFax, filePath);
 
 logger.info("result: " + result);
 
 out.println("result: " + result);
 %>
-</body>
-</html>

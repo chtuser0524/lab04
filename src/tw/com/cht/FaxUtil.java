@@ -19,7 +19,7 @@ import paas.fax.main.FaxRequester;
 
 public class FaxUtil {
 
-	public static String sendFax(String subject, String receiver, String sendType, String sendTime, String senderName, String senderFax) 
+	public static String sendFax(String subject, String receiver, String sendType, String sendTime, String senderName, String senderFax, String filePath) 
 	{
 		CloudLogger logger = CloudLogger.getLogger();
 		logger.setLevel(LogLevel.ALL);
@@ -44,7 +44,8 @@ public class FaxUtil {
 			
 			// Åª¨úÀÉ®×
 //			File uploadFile = new File("yourUploadFilePath");
-			File uploadFile = new File("../doc/lab4.pdf");
+			//File uploadFile = new File("../doc/lab4.pdf");
+			File uploadFile = new File(filePath);
 			byte[] filebytes = readBytesFromFile(uploadFile);
 			Result uploadResult = requester.uploadFile(filebytes, uploadFile.getName());
 //			System.out.println(String.format("Upload Result: %s, %s", uploadResult.isSuccess(), uploadResult.getDescription()));
@@ -136,13 +137,14 @@ public class FaxUtil {
         int offset = 0;
         int numRead = 0;
         while (offset < bytes.length
-               && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) {
+               && (numRead=is.read(bytes, offset, bytes.length - offset)) >= 0) {
             offset += numRead;
         }
     
         // Ensure all the bytes have been read in
         if (offset < bytes.length) {
-            throw new IOException("Could not completely read file "+file.getName());
+        	is.close();
+            throw new IOException("Could not completely read file " + file.getName());
         }
     
         // Close the input stream and return bytes
