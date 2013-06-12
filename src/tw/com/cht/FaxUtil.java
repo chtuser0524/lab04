@@ -90,24 +90,24 @@ public class FaxUtil {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 			
-			logger.error("error:" + e.getMessage());
+			logger.error("Error: " + e.getMessage());
 
-			return "RemoteException";
+			return "Error: " + e.getMessage();
 
 		} catch (IOException e) {
 			e.printStackTrace();
 			
-			logger.error("error:" + e.getMessage());
+			logger.error("Error: " + e.getMessage());
 
-			return "IOException";
+			return "Error: " + e.getMessage();
 
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 			
-			logger.error("error:" + e.getMessage());
+			logger.error("Error: " + e.getMessage());
 
-			return "Exception";
+			return "Error: " + e.getMessage();
 
 		}
 	}
