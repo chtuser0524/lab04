@@ -149,7 +149,7 @@ String filePath = "";
 		<td><input name="senderFax" type="text" size="20" maxlength="30" value="0226552869" /></td>
 	</tr>
 </table>
-<input name="filePath" type="text" hidden="true" value="<%=filePath %>" />
+<input name="filePath" type="hidden" value="<%=filePath %>" />
 <input type="submit" value="送出" />
 </form>
 </body>
