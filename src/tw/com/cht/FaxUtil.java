@@ -37,7 +37,8 @@ public class FaxUtil {
 			
 			// authentication
 			Result authResult = requester.authentication(isvAccount, isvKey);
-			System.out.println(String.format("Auth Result: %s, %s", authResult.isSuccess(), authResult.getDescription()));
+//			System.out.println(String.format("Auth Result: %s, %s", authResult.isSuccess(), authResult.getDescription()));
+			logger.info(String.format("Auth Result: %s, %s", authResult.isSuccess(), authResult.getDescription()));
 			
 			logger.info("upload file");
 			
@@ -46,7 +47,8 @@ public class FaxUtil {
 			File uploadFile = new File("../doc/lab4.pdf");
 			byte[] filebytes = readBytesFromFile(uploadFile);
 			Result uploadResult = requester.uploadFile(filebytes, uploadFile.getName());
-			System.out.println(String.format("Upload Result: %s, %s", uploadResult.isSuccess(), uploadResult.getDescription()));
+//			System.out.println(String.format("Upload Result: %s, %s", uploadResult.isSuccess(), uploadResult.getDescription()));
+			logger.info(String.format("Upload Result: %s, %s", uploadResult.isSuccess(), uploadResult.getDescription()));
 			
 			logger.info("sendTimeFormat");
 			
@@ -72,7 +74,8 @@ public class FaxUtil {
 													receiverList, 
 													senderName, 
 													senderFax);
-			System.out.println(String.format("SendFax Result: %s, %s", sendResult.isSuccess(), sendResult.getDescription()));
+//			System.out.println(String.format("SendFax Result: %s, %s", sendResult.isSuccess(), sendResult.getDescription()));
+			logger.info(String.format("SendFax Result: %s, %s", sendResult.isSuccess(), sendResult.getDescription()));
 			
 			logger.info("getFaxDeliveryStatusEx");
 			
@@ -83,31 +86,35 @@ public class FaxUtil {
 			QueryPackage queryPackage = requester.getFaxDeliveryStatusEx(sendResult.getMessageId(), queryTels);
 			Result queryResult = queryPackage.getQueryResult();
 			String result = String.format("Query Result: %s, %s", queryResult.isSuccess(), queryResult.getDescription());
-			System.out.println(result);
+//			System.out.println(result);
+			logger.info(result);
 			
 			return result;
 
 		} catch (RemoteException e) {
 			e.printStackTrace();
 			
-			logger.error("Error: " + e.getMessage());
+			String error = "Error: " + e.getMessage();
+			logger.error(error);
 
-			return "Error: " + e.getMessage();
+			return error;
 
 		} catch (IOException e) {
 			e.printStackTrace();
 			
-			logger.error("Error: " + e.getMessage());
+			String error = "Error: " + e.getMessage();
+			logger.error(error);
 
-			return "Error: " + e.getMessage();
+			return error;
 
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 			
-			logger.error("Error: " + e.getMessage());
+			String error = "Error: " + e.getMessage();
+			logger.error(error);
 
-			return "Error: " + e.getMessage();
+			return error;
 
 		}
 	}
